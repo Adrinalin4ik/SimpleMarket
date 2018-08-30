@@ -2,18 +2,6 @@
 	{
 		"title":"Item 1",
 		"description":"Item 1 Description",
-		"image":"",
-		"price":120
-	},
-	{
-		"title":"Item 1",
-		"description":"Item 1 Description",
-		"image":"",
-		"price":120
-	},
-	{
-		"title":"Item 1",
-		"description":"Item 1 Description",
 		"image":"https://gitlab.com/Adrinalin4ik/SimpleMarket/raw/df15f779aaf9d17f495e4d93c6f774bd5e4721e8/images/1.jpg",
 		"price":121
 	},
@@ -34,5 +22,5 @@
 		"description":"Item 4 Description",
 		"image":"https://gitlab.com/Adrinalin4ik/SimpleMarket/raw/df15f779aaf9d17f495e4d93c6f774bd5e4721e8/images/4.jpg",
 		"price":124
-	},
+	}
 ]

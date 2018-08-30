@@ -1,15 +1,21 @@
 import React, { Component } from "react";
-import {StyleSheet,
-        View,
-        FlatList,
-        Content,
-        Text,
-        TouchableHighlight,
+import {StyleSheet, 
+        View, 
+        FlatList, 
+        Content, 
+        Text, 
+        TouchableHighlight, 
         ListView,
-        Image } from "react-native";
-import ListItem from './list-item.js'
+        ActivityIndicator,
+        Image 
+} from "react-native";
 
-export default class ItemGrid extends Component {
+import ListItem from './list-item.js'
+import * as Actions from '../redux_module/actions'; //Import your actions
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+class ItemGrid extends Component {
 
   constructor(props){
     super(props)
@@ -17,30 +23,37 @@ export default class ItemGrid extends Component {
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     this.state = {
-      dataSource: this.ds.cloneWithRows([
-        {text:"fdsfds", image:"https://www.w3schools.com/w3css/img_lights.jpg"},
-        {text:"fdsfds", image:"https://www.w3schools.com/w3css/img_lights.jpg"},
-        {text:"fdsfds", image:"https://www.w3schools.com/w3css/img_lights.jpg"},
-        {text:"fdsfds", image:"https://www.w3schools.com/w3css/img_lights.jpg"},
-        {text:"fdsfds", image:"https://www.w3schools.com/w3css/img_lights.jpg"},
-        {text:"fdsfds", image:"https://www.w3schools.com/w3css/img_lights.jpg"},
-        {text:"fdsfds", image:"https://www.w3schools.com/w3css/img_lights.jpg"}
-        ])
+      dataSource: []
     }
   }
 
-  render() {
-    return (
-      <ListView contentContainerStyle={styles.list}
-        dataSource={this.state.dataSource}
-        renderRow={this._renderRow}
-      />
-    );
+  componentDidMount() {
+    this.props.getData();
+    console.log(this.props)
   }
 
-  _renderRow(rowData: string, sectionID: number, rowID: number) {
+  render() {
+      console.log(this.props)
+      if (this.props.loading) {
+          return (
+              <View style={styles.activityIndicatorContainer}>
+                  <ActivityIndicator animating={true}/>
+              </View>
+          );
+      } else {
+        return (
+          <ListView contentContainerStyle={styles.list}
+            dataSource={this.ds.cloneWithRows(this.props.dataSource)}
+            renderRow={this.renderRow}
+          />
+        );
+      }
+  }
+
+  renderRow(rowData, sectionID, rowID) {
+    console.log(this)
     return (
-      <TouchableHighlight onPress={() => this._pressRow(rowID)} underlayColor='rgba(0,0,0,0)'>
+      <TouchableHighlight onPress={() => console.log(this)} underlayColor='rgba(0,0,0,0)'>
         <View>
           <View style={styles.row}>
             <Image style={styles.image} source={{uri:rowData.image}} />
@@ -50,18 +63,25 @@ export default class ItemGrid extends Component {
     );
   }
 
-  _pressRow(rowID: number) {
-    console.log("ROW", rowID)
+  _pressRow(data) {
+    console.log(data)
   }
 
 }
 
 const styles = StyleSheet.create({
+  activityIndicatorContainer:{
+      backgroundColor: "#fff",
+      alignItems: 'center',
+      justifyContent: 'center',
+      flex: 1,
+  },
   list: {
     justifyContent: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop:30,
+    paddingTop:20,
+    paddingBottom:10
   },
   row: {
     justifyContent: 'center',
@@ -81,3 +101,23 @@ const styles = StyleSheet.create({
 
   },
 });
+
+// The function takes data from the app current state,
+// and insert/links it into the props of our component.
+// This function makes Redux know that this component needs to be passed a piece of the state
+function mapStateToProps(state, props) {
+    return {
+        loading: state.dataReducer.loading,
+        data: state.dataReducer.data
+    }
+}
+
+// Doing this merges our actions into the component’s props,
+// while wrapping them in dispatch() so that they immediately dispatch an Action.
+// Just by doing this, we will have access to the actions defined in out actions file (action/home.js)
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(Actions, dispatch);
+}
+
+//Connect everything
+export default connect(mapStateToProps, mapDispatchToProps)(ItemGrid);

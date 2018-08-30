@@ -3,26 +3,16 @@ import {
   StyleSheet,
   View
 } from 'react-native';
-import ListItem from './components/list-item.js'
 import ItemGrid from './components/item-grid.js'
-
+import store from './redux_module/store'; //Import the store
+import { Provider } from 'react-redux';
 
 export default class App extends Component {
-
   render() {
     return (
-      <View>
+      <Provider store={store}>
         <ItemGrid/>
-      </View>
-      );
+      </Provider>
+    );
   }
 }
-
-
-const styles = StyleSheet.create({
-  border:{
-    borderRadius: 10,
-    borderWidth: 5,
-    borderColor: 'white',
-  }
-});
