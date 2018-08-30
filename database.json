@@ -1,0 +1,38 @@
+[
+	{
+		"title":"Item 1",
+		"description":"Item 1 Description",
+		"image":"",
+		"price":120
+	},
+	{
+		"title":"Item 1",
+		"description":"Item 1 Description",
+		"image":"",
+		"price":120
+	},
+	{
+		"title":"Item 1",
+		"description":"Item 1 Description",
+		"image":"https://gitlab.com/Adrinalin4ik/SimpleMarket/raw/df15f779aaf9d17f495e4d93c6f774bd5e4721e8/images/1.jpg",
+		"price":121
+	},
+	{
+		"title":"Item 2",
+		"description":"Item 2 Description",
+		"image":"https://gitlab.com/Adrinalin4ik/SimpleMarket/raw/df15f779aaf9d17f495e4d93c6f774bd5e4721e8/images/2.jpg",
+		"price":122
+	},
+	{
+		"title":"Item 3",
+		"description":"Item 3 Description",
+		"image":"https://gitlab.com/Adrinalin4ik/SimpleMarket/raw/df15f779aaf9d17f495e4d93c6f774bd5e4721e8/images/3.jpg",
+		"price":123
+	},
+	{
+		"title":"Item 4",
+		"description":"Item 4 Description",
+		"image":"https://gitlab.com/Adrinalin4ik/SimpleMarket/raw/df15f779aaf9d17f495e4d93c6f774bd5e4721e8/images/4.jpg",
+		"price":124
+	},
+]
